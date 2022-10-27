@@ -22,14 +22,14 @@ jobs:
           mingw-w64-x86_64-pkg-config
           zip
     - name: Checkout source
-      run: git clone https://github.com/schmurtzm/ScummVM-MiyooMini.git && cd scummvm && git submodule update --init
+      run: git clone https://github.com/schmurtzm/ScummVM-MiyooMini.git scummvm && cd scummvm && git submodule update --init
     - name: include climits in a couple of files 
       run: |
         sed -i '1s;^;#include <climits>\n;' scummvm/engines/stark/console.cpp
         sed -i '1s;^;#include <climits>\n;' scummvm/common/random.cpp
         sed -i '1s;^;#include <climits>\n;' scummvm/base/commandLine.cpp
     - name: Checkout libretro backend source
-      run: git clone https://github.com/schmurtzm/libretro-scummvm-miyoo-backend.git && mv libretro-scummvm-backend scummvm/backends/platform/libretro
+      run: git clone https://github.com/schmurtzm/libretro-scummvm-miyoo-backend.git libretro-scummvm-backend && mv libretro-scummvm-backend scummvm/backends/platform/libretro
     - shell: msys2 {0}
       working-directory: scummvm/backends/platform/libretro/build
       run: |
