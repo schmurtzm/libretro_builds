@@ -22,7 +22,7 @@ jobs:
           mingw-w64-x86_64-pkg-config
           zip
     - name: Checkout source
-      run: git clone https://github.com/schmurtzm/gambatte-libretro.git && cd gambatte && git submodule update --init && git checkout mednafen_1_24_3
+      run: git clone https://github.com/schmurtzm/gambatte-libretro.git && cd gambatte-libretro
     - shell: msys2 {0}
       working-directory: gambatte
       run: |
