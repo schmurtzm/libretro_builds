@@ -24,7 +24,7 @@ jobs:
     - name: Checkout source
       run: git clone https://github.com/schmurtzm/gambatte-libretro.git && cd gambatte-libretro
     - shell: msys2 {0}
-      working-directory: gambatte
+      working-directory: gambatte-libretro
       run: |
         make -j8
         zip -9 ../gambatte_libretro.dll.zip gambatte_libretro.dll
