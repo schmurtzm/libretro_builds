@@ -1,0 +1,37 @@
+name: gambatte libretro Windows x86_64
+
+on:
+  workflow_dispatch:
+
+jobs:
+  Windows:
+    name: Build for Windows
+    runs-on: windows-latest
+
+    steps:
+    - uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: >-
+          wget
+          git
+          make
+          mingw-w64-x86_64-binutils
+          mingw-w64-x86_64-toolchain
+          mingw-w64-x86_64-zlib
+          mingw-w64-x86_64-pkg-config
+          zip
+    - name: Checkout source
+      run: git clone https://github.com/schmurtzm/gambatte-libretro.git && cd gambatte && git submodule update --init && git checkout mednafen_1_24_3
+    - shell: msys2 {0}
+      working-directory: gambatte
+      run: |
+        make -j8
+        zip -9 ../gambatte_libretro.dll.zip gambatte_libretro.dll
+    - name: Create new release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        tag: Windows_64-bit
+        file: gambatte_libretro.dll.zip
+        overwrite: true
